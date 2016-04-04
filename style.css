@@ -1,0 +1,104 @@
+@font-face {
+    font-family: 'OlivTitle';
+    src: url('bootstrap/fonts/GrandHotel-Regular.ttf')  format('truetype');
+    font-weight: normal;
+}
+.page{
+    background-color: #efefef;
+}
+.title{
+    font-family: OlivTitle;
+    color: #F64747;
+    letter-spacing: -1px;
+    font-size: 45px;
+}
+.subtitle{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    font-size: 26px;
+    color: #6b6b6b;
+}
+.title-block{
+    background-color: white;
+    box-shadow: 0 0 5px #747474;
+}
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+    color: #F64747;
+    background-color: white;
+    border-bottom: solid;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+.nav-pills > li.active > a:hover {
+    background-color: white;
+    color:#F64747;
+}
+.nav-pills > li > a {
+    background-color: white;
+    color: #353535;
+}
+.nav-pills > li > a:hover {
+    background-color: white;
+    color: #F64747;
+}
+.nav-pills > li{
+    width: 100px;
+    text-align: center;
+}
+.panel{
+    margin-top: 20px;
+    box-shadow: 0 0 3px #747474;
+    background-color: white;
+    padding: 0px;
+}
+.column-users{
+    margin: 0px;
+    padding: 2px;
+}
+.column-chat{
+    background-color: #f9f8f8;
+    padding: 0px;
+    margin: 0px;
+    overflow: auto;
+}
+.column-suggestions{
+
+}
+.user-list{
+    margin: 0px;
+    padding: 0px;
+}
+.list-group-item.active, .list-group-item > a:focus, .list-group-item.active:hover, .list-group-item.active:focus{
+    background-color: #FEF3AF;
+    color: #353535;
+    border-color: #efefef;
+}
+.badge, .badge.active{
+    background-color: #f64747;
+    color: white;
+}
+.chat-list{
+    background-color: #f9f8f8;
+    border: 0px;
+    padding: 0px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.chat-bubble{
+    border-radius: 5px;
+    box-shadow: 0 0 1px darkgray;
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    background-color: white;
+    position: relative;
+    vertical-align: top;
+    clear: both;
+    float: left;
+}
+.oliv-chat {
+    background-color: #FEF3AF;
+    float: right;
+}

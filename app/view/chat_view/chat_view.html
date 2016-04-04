@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+    <div class="container panel">
+        <section id="user-section" ng-controller="UserController as userCtrl">
+            <div class="col-sm-3 column-users">
+                <div class="list-group user-list">
+                    <div ng-repeat="user in users">
+                        <a href="#" class="list-group-item"
+                           ng-click="selectConversation(user)"
+                           ng-class="{active:isUserSelected(user.$id)}">
+                            <span class="badge">1</span>{{user.username}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <!--<section id="chat-section" ng-controller="ChatController as chatCtrl">-->
+            <div class="col-sm-4 column-chat well">
+                <div class="container-fluid">
+                    <ul class="list-group">
+                        <li class="list-group-item chat-list" ng-repeat="chat in chats">
+                            <div class="chat-bubble" ng-class="{'oliv-chat':(chat.author === 1)}">{{chat.message}}</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="input-group">
+                    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your reply" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-sm" id="btn-chat">Send</button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-5 column-suggestions">Suggestions</div>
+        </section>
+        <!--</section>-->
+    </div>
+</body>
+<script src="/app/app.js"></script>
+<script src="/app/controller/controllers.js"></script>
+<script src="/app/controller/filters.js"></script>
+<script src="/app/controller/services.js"></script>
+<script src="/app/controller/directives.js"></script>
+</html>
