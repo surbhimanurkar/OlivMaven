@@ -6,42 +6,93 @@
     <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-    <div class="container panel">
-        <section id="user-section" ng-controller="UserController as userCtrl">
+    <div class="container panel container-tab fill-height">
+        <section id="user-section" ng-controller="ChatController as chatCtrl" class="fill-height">
             <div class="col-sm-3 column-users">
                 <div class="list-group user-list">
                     <div ng-repeat="user in users">
                         <a href="#" class="list-group-item"
                            ng-click="selectConversation(user)"
                            ng-class="{active:isUserSelected(user.$id)}">
-                            <span class="badge">1</span>{{user.username}}
+                            {{user.username}}
+                            <span class="label" ng-class="{'label-primary': isOpen(user), 'label-success': !isOpen(user)}" style="float: right">
+                                {{user.status | capitalcase}}
+                            </span>
                         </a>
                     </div>
                 </div>
             </div>
-        <!--<section id="chat-section" ng-controller="ChatController as chatCtrl">-->
-            <div class="col-sm-4 column-chat well">
-                <div class="container-fluid">
+            <div class="col-sm-4 column-chat divider-left divider-right">
+                <div class="heading-chat-block">
+                    <span class="text-chat-heading">{{user.username}}</span>
+                    <span class="btn-group btn-group-xs status-buttons-group">
+                        <button class="btn btn-primary" id="btn-open-assigned" ng-click="changeStatus()">{{getOpenAssignedButtonText()}}</button>
+                        <button class="btn btn-success" id="btn-resolved" ng-click="markResolved()">Resolved</button>
+                    </span>
+                </div>
+                <div class="container-fluid chat-block well" scroll="chats">
                     <ul class="list-group">
                         <li class="list-group-item chat-list" ng-repeat="chat in chats">
                             <div class="chat-bubble" ng-class="{'oliv-chat':(chat.author === 1)}">{{chat.message}}</div>
                         </li>
                     </ul>
                 </div>
-                <div class="input-group">
-                    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your reply" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-sm" id="btn-chat">Send</button>
-                    </span>
+                <form ng-submit="sendReply()" class="reply-block">
+                    <div class="input-group">
+                        <div class="reply-bubble">
+                            <input id="reply-input" type="text" class="form-control input reply-textbox" placeholder="Type your reply" ng-model="reply"/>
+                        </div>
+                        <span class="input-group-btn input-span" contenteditable="true">
+                            <button class="btn send-btn" id="btn-chat"><span class="glyphicon glyphicon-send"></span></button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-5 column-suggestions container-fluid">
+                <div class="panel-group fill-height" id="accordion">
+                    <div class="panel panel-default" ng-controller="TagController as tagCtrl">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                            <h6 class="panel-title">
+                                Search by Tags
+                            </h6>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse in">
+                            <div class="panel-body fill-height">
+                                <input class="form-control input-sm" type="text" placeholder="Search Tags" ng-model="queryTag">
+                                <div class="well well-sm tags-well">
+                                    <div class="tag-bubble" ng-repeat="tag in tags | searchKey: queryTag" ng-click="selectTag(tag)">{{tag.$id}}</div>
+                                </div>
+                                <div>
+                                    <div class="selected-tag-bubble" ng-repeat="selectedTag in selectedTags" ng-click="unselectTag(selectedTag)">{{selectedTag.$id}}</div>
+                                </div>
+                                <div class="well well-sm search-results-well" ng-show="selectedTags.length!=0">
+                                    <div class="tag-bubble" ng-repeat="suggestion in suggestions | orderObjectBy:'matches':true" ng-click="setReply(suggestion.data.text)">
+                                        {{suggestion.data.text}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                            <h6 class="panel-title">
+                                Profile
+                            </h6>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                            <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                                minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                commodo consequat.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-5 column-suggestions">Suggestions</div>
         </section>
-        <!--</section>-->
     </div>
 </body>
 <script src="/app/app.js"></script>
-<script src="/app/controller/controllers.js"></script>
+<script src="/app/controller/controllers/chat_controllers.js"></script>
 <script src="/app/controller/filters.js"></script>
 <script src="/app/controller/services.js"></script>
 <script src="/app/controller/directives.js"></script>

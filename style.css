@@ -3,6 +3,22 @@
     src: url('bootstrap/fonts/GrandHotel-Regular.ttf')  format('truetype');
     font-weight: normal;
 }
+html, body {
+    height: 100%;
+}
+.fill-height{
+    height: 100%;
+}
+.fill-height-tab{
+    height: 75%;
+}
+.fill-height-collapsible{
+    max-height: calc(100% - 40px);
+}
+.fill-height-collapsible-element{
+    max-height: calc(100% - 40px);
+    overflow: auto;
+}
 .page{
     background-color: #efefef;
 }
@@ -46,28 +62,32 @@
     width: 100px;
     text-align: center;
 }
-.panel{
+.container-tab{
     margin-top: 20px;
     box-shadow: 0 0 3px #747474;
     background-color: white;
-    padding: 0px;
+    padding: 0;
 }
 .column-users{
-    margin: 0px;
+    margin: 0;
     padding: 2px;
+    height: 100%;
 }
 .column-chat{
-    background-color: #f9f8f8;
-    padding: 0px;
-    margin: 0px;
-    overflow: auto;
+    height: 100%;
+    padding: 0 4px 0 4px;
 }
 .column-suggestions{
-
+    height: 100%;
+    padding: 5px;
+    overflow: auto;
+}
+.panel-group.fill-height{
+   margin-bottom: 0;
 }
 .user-list{
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 .list-group-item.active, .list-group-item > a:focus, .list-group-item.active:hover, .list-group-item.active:focus{
     background-color: #FEF3AF;
@@ -78,13 +98,65 @@
     background-color: #f64747;
     color: white;
 }
+.heading-chat-block{
+    border: darkgray 1px;
+    height: 30px;
+    padding: 5px;
+}
+.text-chat-heading{
+    font-size: 15px;
+    color: #6b6b6b;
+    margin-left: 5px;
+}
+.chat-block{
+    height: calc(100% - 84px);
+    overflow: auto;
+    margin-bottom: 0;
+    background-color: #eeeeee;
+}
+.reply-block{
+    height: 50px;
+    width: 100%;
+    border: darkgray 1px;
+}
+.reply-bubble{
+    border-radius: 3px;
+    box-shadow: 0 0 2px darkgray;
+    display: inline-block;
+    padding: 5px;
+    margin: 5px 5px 5px 5px;
+    background-color: white;
+    position: relative;
+    vertical-align: middle;
+    width: 98%;
+}
+.reply-textbox{
+    border: 0;
+    box-shadow: none;
+}
+.reply-textbox:focus{
+    box-shadow: none;
+}
+.send-btn{
+    background-color: transparent;
+}
+.input-span{
+    width: 40px;
+}
+.input-group{
+    width: 100%;
+}
+.glyphicon-send{
+    color: #F64747;
+    font-size: x-large;
+}
 .chat-list{
     background-color: #f9f8f8;
-    border: 0px;
-    padding: 0px;
-    margin-bottom: 0px;
-    margin-left: 5px;
-    margin-right: 5px;
+    border: 0;
+    padding: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
 }
 .chat-bubble{
     border-radius: 5px;
@@ -101,4 +173,61 @@
 .oliv-chat {
     background-color: #FEF3AF;
     float: right;
+}
+.status-buttons-group{
+    float: right;
+}
+.tag-bubble{
+    border-radius: 2px;
+    box-shadow: 0 0 1px darkgray;
+    display: inline-block;
+    padding: 5px;
+    margin: 3px;
+    background-color: white;
+    cursor: pointer;
+}
+.tags-well{
+    overflow: auto;
+    margin-bottom: 10px;
+    max-height: 95px;
+}
+.search-results-well{
+    overflow: auto;
+    max-height: 200px;
+    margin-bottom: 0;
+}
+.selected-tag-bubble{
+    border-radius: 2px;
+    border: solid 1px darkgray;
+    box-shadow: 0 0 1px darkgray;
+    display: inline-block;
+    padding: 5px;
+    margin: 3px;
+    background-color: white;
+    cursor: pointer;
+}
+.panel-title{
+    font-weight: normal;
+    font-size: 14px;
+}
+.divider-left{
+    border-left: solid 1px lightgray;
+}
+.divider-right{
+    border-right: solid 1px lightgray;
+}
+.padding-zero{
+    padding: 0;
+}
+.float-right{
+    float: right;
+}
+.input-new-tag{
+    width: 80%;
+    height: 30px;
+    display: inline-block;
+}
+.button-add-tag{
+    float: right;
+    margin-top: 4px;
 }

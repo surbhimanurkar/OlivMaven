@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+    <div class="container panel container-tab fill-height" ng-controller="ManageTagsController as manageTagsCtrl">
+        <div class="col-sm-9 fill-height">
+            Tree
+        </div>
+        <div class="col-sm-3 fill-height padding-zero">
+            <div class="panel panel-default fill-height">
+                <div class="panel-heading">
+                    <span>Tags</span>
+                </div>
+                <div class="panel-body padding-zero">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <input type="text" class="form-control input input-new-tag" placeholder="tag" ng-model="newTag"/>
+                            <button type="button" class="btn btn-xs btn-primary button-add-tag">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </li>
+                        <li class="list-group-item" ng-repeat="tag in tags">{{tag.$id}}
+                            <button type="button" class="btn btn-xs btn-default float-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </li>
+                        <li class="list-group-item">#fashion<span class="label label-default float-right">12</span></li>
+                        <li class="list-group-item">#makeup<span class="label label-default float-right">12</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script src="/app/app.js"></script>
+<script src="/app/controller/controllers/admin_controllers.js"></script>
+<script src="/app/controller/filters.js"></script>
+<script src="/app/controller/services.js"></script>
+<script src="/app/controller/directives.js"></script>
+</html>

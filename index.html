@@ -7,39 +7,44 @@
     <!--
     <link data-require="bootstrap@*" data-semver="3.3.6" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script data-require="bootstrap@*" data-semver="3.3.6" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+
     -->
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="image/oliv.png"/>
 </head>
 
 <body class="page">
-<div ng-controller="TabController as tabs">
+<div ng-controller="TabController as tabs" class="fill-height">
     <div class="title-block">
         <div class="container">
             <h1 class="title">Oliv <small class="subtitle">Maven</small></h1>
             <ul class="nav nav-pills">
                 <li ng-class="{ active:tabs.isSelected(1)}"><a href="#" ng-click="tabs.selectTab(1)">Chat</a></li>
-                <li ng-class="{ active:tabs.isSelected(2)}"><a href="#" ng-click="tabs.selectTab(2)">Content</a></li>
+                <li ng-class="{ active:tabs.isSelected(2)}"><a href="#" ng-click="tabs.selectTab(2)">Suggestions</a></li>
+                <li ng-class="{ active:tabs.isSelected(3)}"><a href="#" ng-click="tabs.selectTab(3)">Admin</a></li>
             </ul>
         </div>
     </div>
-    <div ng-show="tabs.isSelected(1)">
-        <div ng-include="'app/view/chat_view/chat_view.html'"></div>
+    <div ng-show="tabs.isSelected(1)" class="fill-height-tab">
+        <div ng-include="'app/view/chat_view/chat_view.html'" class="fill-height"></div>
     </div>
-    <div ng-show="tabs.isSelected(2)">
-        <h4>Content</h4>
+    <div ng-show="tabs.isSelected(2)" class="fill-height-tab">
+        <div ng-include="'app/view/suggestions_view/suggestions_view.html'" class="fill-height"></div>
+    </div>
+    <div ng-show="tabs.isSelected(3)" class="fill-height-tab">
+        <div ng-include="'app/view/admin_view/admin_view.html'" class="fill-height"></div>
     </div>
 </div>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
 <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
 <!-- AngularFire -->
 <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="app/app.js"></script>
-<script src="app/controller/controllers.js"></script>
+<script src="app/controller/controllers/chat_controllers.js"></script>
 <script src="app/controller/filters.js"></script>
 <script src="app/controller/services.js"></script>
 <script src="app/controller/directives.js"></script>
