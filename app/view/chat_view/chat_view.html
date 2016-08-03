@@ -8,6 +8,7 @@
 <body>
     <div class="container panel container-tab fill-height">
         <section id="user-section" ng-controller="ChatController as chatCtrl" class="fill-height">
+            <!--user list column of the chat page-->
             <div class="col-sm-3 column-users">
                 <div class="list-group user-list">
                     <div ng-repeat="user in users">
@@ -22,18 +23,21 @@
                     </div>
                 </div>
             </div>
+            <!--chat column of the chat page-->
             <div class="col-sm-4 column-chat divider-left divider-right">
                 <div class="heading-chat-block">
                     <span class="text-chat-heading">{{user.username}}</span>
                     <span class="btn-group btn-group-xs status-buttons-group">
-                        <button class="btn btn-primary" id="btn-open-assigned" ng-click="changeStatus()">{{getOpenAssignedButtonText()}}</button>
+                        <button class="btn btn-primary" id="btn-open-assigned-inProgress" ng-click="changeStatus2()">{{getOpenAssignedButtonText()}}</button>
                         <button class="btn btn-success" id="btn-resolved" ng-click="markResolved()">Resolved</button>
                     </span>
                 </div>
                 <div class="container-fluid chat-block well" scroll="chats">
                     <ul class="list-group">
                         <li class="list-group-item chat-list" ng-repeat="chat in chats">
-                            <div class="chat-bubble" ng-class="{'oliv-chat':(chat.author === 1)}">{{chat.message}}</div>
+                            <div class="chat-bubble" ng-class="{'oliv-chat':(chat.author === 1)}">
+                                <img src = {{chat.image}}>{{chat.message}}
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -48,15 +52,33 @@
                     </div>
                 </form>
             </div>
+            <!--tips column of the chat page-->
             <div class="col-sm-5 column-suggestions container-fluid">
                 <div class="panel-group fill-height" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                            <h6 class="panel-title">
+                                Profile
+                            </h6>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="col-sm-8">
+                                    {{getProfileInfo()}}
+                                </div>
+                                <div class="col-sm-4">
+                                    <img src={{getProfilePicture()}} class="center-cropped">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="panel panel-default" ng-controller="TagController as tagCtrl">
                         <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
                             <h6 class="panel-title">
                                 Search by Tags
                             </h6>
                         </div>
-                        <div id="collapse1" class="panel-collapse collapse in">
+                        <div> <!--id="collapse1"> <!--class="panel-collapse collapse in"-->
                             <div class="panel-body fill-height">
                                 <input class="form-control input-sm" type="text" placeholder="Search Tags" ng-model="queryTag">
                                 <div class="well well-sm tags-well">
@@ -71,19 +93,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                            <h6 class="panel-title">
-                                Profile
-                            </h6>
-                        </div>
-                        <div id="collapse2" class="panel-collapse collapse">
-                            <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.</div>
                         </div>
                     </div>
                 </div>

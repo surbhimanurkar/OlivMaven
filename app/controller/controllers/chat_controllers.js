@@ -17,11 +17,13 @@ app.controller("ChatController", function ($scope, $firebaseArray) {
             }
         });
     },true);
-    
+
     //Selecting user
     $scope.selectConversation = function (setUser) {
         $scope.user = setUser;
         getChats($scope, $firebaseArray);
+        getProfileInfo(setUser);
+        getProfilePicture(setUser);
     };
     $scope.isUserSelected = function (checkUID) {
         return ($scope.user.$id.localeCompare(checkUID) === 0);
@@ -55,6 +57,21 @@ app.controller("ChatController", function ($scope, $firebaseArray) {
     };
 
 
+    //Mark user chats as open/assigned/inProgress
+    $scope.changeStatus2 = function(){
+        if($scope.user.status === 'OPEN'){
+            $scope.user.status = 'ASSIGNED';
+            $scope.users.$save($scope.user);
+        }else if($scope.user.status === 'ASSIGNED'){
+            $scope.user.status = 'INPROGRESS';
+            $scope.users.$save($scope.user);
+        }else if($scope.user.status === 'INPROGRESS'){
+            $scope.user.status = 'OPEN';
+            $scope.users.$save($scope.user);
+        }
+    };
+
+
     //Mark user chats as open/assigned
     $scope.changeStatus = function(){
         if($scope.user.status === 'OPEN'){
@@ -66,12 +83,30 @@ app.controller("ChatController", function ($scope, $firebaseArray) {
         }
     };
 
-    //Retrieving text for open-assigned-button
+    //Retrieving text for open-assigned-process-button
     $scope.getOpenAssignedButtonText = function () {
         if($scope.user && $scope.user.status && ($scope.user.status === 'OPEN')){
             return 'Assign';
+        }else if($scope.user && $scope.user.status && ($scope.user.status === 'ASSIGNED')){
+            return 'Process';
         }else{
             return 'Open';
+        }
+    };
+
+    $scope.getProfileInfo = function (setUser) {
+        if ($scope.user.profileInfo) {
+            return $scope.user.profileInfo;
+        } else {
+            return;
+        }
+    };
+
+    $scope.getProfilePicture = function () {
+        if ($scope.user.image) {
+            return $scope.user.image;
+        } else {
+            return;
         }
     };
 
@@ -88,13 +123,18 @@ function getChats ($scope, $firebaseArray) {
     $scope.$watch('chats', function () {
         $scope.chats.forEach(function (chat) {
             // Skip invalid entries so they don't break the entire app.
-            if (!chat || !chat.message) {
+            if (!chat.message) {//receive image too
+                return;
+            } else if (!chat.image){
                 return;
             }
         });
     }, true);
 
 };
+
+
+
 app.controller("TagController", function ($scope, $firebaseArray, $firebaseObject) {
     var tagRef = fireRef.child("tags");
 
@@ -111,11 +151,14 @@ app.controller("TagController", function ($scope, $firebaseArray, $firebaseObjec
     $scope.selectTag = function (tag) {
         if($scope.selectedTags.indexOf(tag) === -1){
             $scope.selectedTags.push(tag);
+            var index = $scope.tags.indexOf(tag);
+            $scope.tags.splice(index, 1);
         }
     };
     $scope.unselectTag = function (tag) {
         var index = $scope.selectedTags.indexOf(tag);
         $scope.selectedTags.splice(index, 1);
+        $scope.tags.push(tag)
     };
 
     //Retrieving suggestions

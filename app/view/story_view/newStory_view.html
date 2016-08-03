@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stories</title>
+</head>
+<body>
+    <form id="articleForm" method="post">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-4">
+                    <label class="control-label">Author</label>
+                    <input type="text" class="form-control" name="title" placeholder="Author Name"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <label class="control-label">Title</label>
+                    <input type="text" class="form-control" name="title" placeholder="Title of the story"/>
+                </div>
+                <div class="col-xs-4">
+                    <label class="control-label">Sub-Title</label>
+                    <input type="text" class="form-control" name="subtitle" placeholder="Sub-Title of the story"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 selectContainer">
+                    <label class="control-label">Category</label>
+                    <select class="form-control" name="category">
+                        <option value="">Choose a category</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="beauty">Beauty</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="col-xs-4 selectContainer">
+                    <label class="control-label">Sub-Category</label>
+                    <select class="form-control" name="category">
+                        <option value="">Choose a sub-category</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="beauty">Beauty</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-8 selectContainer" ng-controller="TagController as tagCtrl">
+                    <label class="control-label">Select Tags</label>
+                    <div>
+                        <div class="panel-body fill-height">
+                            <input class="form-control input-sm" type="text" placeholder="Search Tags" ng-model="queryTag">
+                            <div class="well well-sm tags-well">
+                                <div class="tag-bubble" ng-repeat="tag in tags | searchKey: queryTag" ng-click="selectTag(tag)">{{tag.$id}}</div>
+                            </div>
+                            <div>
+                                <div class="selected-tag-bubble" ng-repeat="selectedTag in selectedTags" ng-click="unselectTag(selectedTag)">{{selectedTag.$id}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-1 selectContainer">
+                        <label class="control-label">Add New Tag</label>
+                    </div>
+                    <div class="col-xs-2 selectContainer">
+                        <input type="text" class="form-control" name="NewTag" placeholder="Enter New Tag Name"/>
+                    </div>
+                    <div class="col-xs-1 selectContainer">
+                        <label class="control-label"><button type="add" class="btn btn-primary" id="add">Add</button></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">TextInitial</label>
+            <textarea class="form-control" name="textInitial" rows="4"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Carousel</label>
+            <div class="row">
+                <div class="col-xs-6 selectContainer">
+                    <label class="control-label">Item Text</label>
+                    <textarea class="form-control" name="ItemText" rows="2" placeholder="Enter Carousel Item Text"></textarea>
+                </div>
+                <div class="col-xs-1 selectContainer">
+                    <label class="control-label">Item Position</label>
+                    <select class="form-control" name="category">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                    </select>
+                </div>
+                <div class="col-xa-5 selectContainer">
+                    <label class="control-label">Image</label>
+                    <!--code to upload image-->
+                </div>
+            </div>
+            <div>
+                <!--add another item code-->
+            </div>
+        </div>
+
+        <!-- The default publishing status -->
+        <input type="hidden" name="status" value="unpublished" />
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
+            <button type="submit" class="btn btn-default" id="publishButton">Save and publish</button>
+        </div>
+    </form>
+</body>
+<script src="/app/app.js"></script>
+<script src="/app/controller/controllers/story_controllers.js"></script>
+<script src="/app/controller/filters.js"></script>
+<script src="/app/controller/services.js"></script>
+<script src="/app/controller/directives.js"></script>
+<script src="//oss.maxcdn.com/bootbox/4.2.0/bootbox.min.js"></script>
+</html>

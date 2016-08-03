@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="image/umbrella.jpg"/>
+    <link rel="icon" href="image/oliv.png"/>
 </head>
 
 <body class="page">
@@ -22,9 +22,8 @@
             <h1 class="title">Oliv <small class="subtitle">Maven</small></h1>
             <ul class="nav nav-pills">
                 <li ng-class="{ active:tabs.isSelected(1)}"><a href="#" ng-click="tabs.selectTab(1)">Chat</a></li>
-                <li ng-class="{ active:tabs.isSelected(2)}"><a href="#" ng-click="tabs.selectTab(2)">Tips</a></li>
-                <li ng-class="{ active:tabs.isSelected(3)}"><a href="#" ng-click="tabs.selectTab(3)">Stories</a></li>
-                <li ng-class="{ active:tabs.isSelected(4)}"><a href="#" ng-click="tabs.selectTab(4)">Admin</a></li>
+                <li ng-class="{ active:tabs.isSelected(2)}"><a href="#" ng-click="tabs.selectTab(2)">Suggestions</a></li>
+                <li ng-class="{ active:tabs.isSelected(3)}"><a href="#" ng-click="tabs.selectTab(3)">Admin</a></li>
             </ul>
         </div>
     </div>
@@ -32,12 +31,9 @@
         <div ng-include="'app/view/chat_view/chat_view.html'" class="fill-height"></div>
     </div>
     <div ng-show="tabs.isSelected(2)" class="fill-height-tab">
-        <div ng-include="'app/view/tips_view/tips_view.html'" class="scrollable"></div>
+        <div ng-include="'app/view/suggestions_view/suggestions_view.html'" class="fill-height"></div>
     </div>
     <div ng-show="tabs.isSelected(3)" class="fill-height-tab">
-        <div ng-include="'app/view/story_view/story_view.html'" class="scrollable"></div>
-    </div>
-    <div ng-show="tabs.isSelected(4)" class="fill-height-tab">
         <div ng-include="'app/view/admin_view/admin_view.html'" class="fill-height"></div>
     </div>
 </div>

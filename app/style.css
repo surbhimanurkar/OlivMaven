@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'OlivTitle';
-    src: url('bootstrap/fonts/GrandHotel-Regular.ttf')  format('truetype');
+    /*src: url('bootstrap/fonts/GrandHotel-Regular.ttf')  format('truetype');*/
     font-weight: normal;
 }
 html, body {
@@ -157,12 +157,6 @@ html, body {
     margin-bottom: 0;
     margin-left: 0;
     margin-right: 0;
-}
-.center-cropped {
-    width: 100px;
-    height: 100px;
-    background-position: center center;
-    background-repeat: no-repeat;
 }
 .chat-bubble{
     border-radius: 5px;
