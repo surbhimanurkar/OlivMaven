@@ -1,4 +1,1 @@
-{
-  ".read": true,
-  ".write": true
-}
+{"rules":{".read": true, ".write": true}}

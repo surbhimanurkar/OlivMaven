@@ -170,6 +170,10 @@ html, body {
     clear: both;
     float: left;
 }
+.new-story{
+    padding: 5px;
+    position: relative;
+}
 .oliv-chat {
     background-color: #FEF3AF;
     float: right;

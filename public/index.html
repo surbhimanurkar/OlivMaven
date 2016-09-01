@@ -1,52 +1,69 @@
 <!DOCTYPE html>
-<html ng-app="OlivMaven">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome to Firebase Hosting</title>
+    <style media="screen">
+      body {
+        font-family: Roboto, Arial, sans-serif;
+        background: #ECEFF1;
+        color: rgba(0,0,0,0.87);
+      }
 
-<head>
-    <meta charset="utf-8" />
-    <title>Oliv Maven</title>
-    <!--
-    <link data-require="bootstrap@*" data-semver="3.3.6" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    <script data-require="bootstrap@*" data-semver="3.3.6" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+      a {
+        color: rgb(3,155,229);
+      }
 
-    -->
+      #message {
+        max-width: 400px;
+        margin: 40px auto;
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2),0 1px 1px 0 rgba(0,0,0,0.14),0 2px 1px -1px rgba(0,0,0,0.12);
+        border-radius: 2px;
+        background: white;
+        padding: 16px 24px;
+      }
 
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="image/oliv.png"/>
-</head>
+      #message h1 {
+        font-size: 22px;
+        font-weight: 500;
+        text-align: center;
+        margin: 0 0 16px;
+      }
 
-<body class="page">
-<div ng-controller="TabController as tabs" class="fill-height">
-    <div class="title-block">
-        <div class="container">
-            <h1 class="title">Oliv <small class="subtitle">Maven</small></h1>
-            <ul class="nav nav-pills">
-                <li ng-class="{ active:tabs.isSelected(1)}"><a href="#" ng-click="tabs.selectTab(1)">Chat</a></li>
-                <li ng-class="{ active:tabs.isSelected(2)}"><a href="#" ng-click="tabs.selectTab(2)">Suggestions</a></li>
-                <li ng-class="{ active:tabs.isSelected(3)}"><a href="#" ng-click="tabs.selectTab(3)">Admin</a></li>
-            </ul>
-        </div>
+      #message p {
+        font-weight: 300;
+        line-height: 150%;
+      }
+
+      #message ul {
+        list-style: none;
+        margin: 16px 0 0;
+        padding: 0;
+        text-align: center;
+      }
+
+      #message li a {
+        display: inline-block;
+        padding: 8px;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-weight: 500;
+        background: rgb(3,155,229);
+        color: white;
+        border: 1px solid rgb(3,155,229);
+        border-radius: 3px;
+        font-size: 14px;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="message">
+      <h1>Welcome to Firebase Hosting</h1>
+      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
+      <ul>
+        <li><a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a></li>
+      </ul>
     </div>
-    <div ng-show="tabs.isSelected(1)" class="fill-height-tab">
-        <div ng-include="'app/view/chat_view/chat_view.html'" class="fill-height"></div>
-    </div>
-    <div ng-show="tabs.isSelected(2)" class="fill-height-tab">
-        <div ng-include="'app/view/suggestions_view/suggestions_view.html'" class="fill-height"></div>
-    </div>
-    <div ng-show="tabs.isSelected(3)" class="fill-height-tab">
-        <div ng-include="'app/view/admin_view/admin_view.html'" class="fill-height"></div>
-    </div>
-</div>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
-<script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
-<!-- AngularFire -->
-<script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
-<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="app/app.js"></script>
-<script src="app/controller/controllers/chat_controllers.js"></script>
-<script src="app/controller/filters.js"></script>
-<script src="app/controller/services.js"></script>
-<script src="app/controller/directives.js"></script>
-</body>
+  </body>
 </html>

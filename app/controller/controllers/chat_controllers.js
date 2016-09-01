@@ -1,6 +1,6 @@
 var firebaseUrl = "https://askoliv.firebaseio.com/";
 var fireRef = new Firebase(firebaseUrl);
-app.controller("ChatController", function ($scope, $firebaseArray) {
+app.controller("ChatController", function ($scope, $http, $log, $firebaseArray) {
 
     //Retrieving users
     var userRef = fireRef.child('user').orderByChild('resolved').equalTo(false);
@@ -41,9 +41,13 @@ app.controller("ChatController", function ($scope, $firebaseArray) {
                 var id = ref.key();
                 console.log("added record with id " + id);
                 $scope.reply = '';
+                console.log("initiating notification");
+                sendChatNotification($scope, $http);
             });
         }
+
     };
+
     $scope.setReply = function(newReply){
       $scope.reply = newReply;
     };
@@ -115,6 +119,49 @@ app.controller("ChatController", function ($scope, $firebaseArray) {
     };
     
 });
+
+function sendChatNotification($scope, $http) {
+    var userId = $scope.user.$id;
+    var jsonBody = {
+        "group_id": "messages",
+        "priority":"high",
+        "recipients": {
+            "custom_ids": [userId]
+        },
+        "message": {
+            "title": "Parapluie",
+            "body": "You have new messages!"
+        },
+        "deeplink": "https://k2a92.app.goo.gl/EawQ",
+        "gcm_collapse_key": {
+            "enabled": true,
+            "key": "default"
+        }
+    };
+    var BATCH_API_KEY = "DEV57A08F6E6FE36C56522B32FFB78";
+    var BATCH_REST_API_KEY = "722a39c52cddcd0a6bc66cb8bf58da71";
+    var batch_url = "https://api.batch.com/1.0/"+BATCH_API_KEY+"/transactional/send";
+    var req = {
+        method: 'POST',
+        url: batch_url,//"https://api.batch.com/1.0/DEV57A08F6E6FE36C56522B32FFB78/transactional/send",
+        data: JSON.stringify(jsonBody),
+        headers: {
+            "Content-Type": "application/json",
+            "X-Authorization": BATCH_REST_API_KEY
+        }
+    };
+    $http(req).success(function(jsonBody) {
+        // this callback will be called asynchronously
+        // when the response is available
+        console.log("User Id: "+ userId);
+        console.log("successfully posted the notification");
+    }).error(function(jsonBody) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        console.log("error while pushing the notification");
+    });
+}
+
 function getChats ($scope, $firebaseArray) {
     var chatRef = fireRef.child("chat").child($scope.user.$id);
 
@@ -159,6 +206,20 @@ app.controller("TagController", function ($scope, $firebaseArray, $firebaseObjec
         var index = $scope.selectedTags.indexOf(tag);
         $scope.selectedTags.splice(index, 1);
         $scope.tags.push(tag)
+    };
+    $scope.newTag = '';
+    $scope.addTag = function (tag) {
+        var tag = {name : tag, popularity : 50};
+        if($scope.tags && tags.indexOf(tag)){
+            $scope.myTxt = "tag already exists.";
+        } else {
+            $scope.tags.$child(tag.name).$set(tag).then(function(ref){
+                var id = ref.key();
+                console.log("added record with id " + id);
+                $scope.tag='';
+            });
+            $scope.myTxt = "tag added.";
+        }
     };
 
     //Retrieving suggestions

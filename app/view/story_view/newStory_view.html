@@ -5,28 +5,29 @@
     <title>Stories</title>
 </head>
 <body>
-    <form id="articleForm" method="post">
+    <form id="articleForm" ng-controller="StoryController as storyCtrl" ng-submit="storyCtrl.submitStory(newStory)" method="post">
+        <div class="new-story">
         <div class="form-group">
             <div class="row">
                 <div class="col-xs-4">
                     <label class="control-label">Author</label>
-                    <input type="text" class="form-control" name="title" placeholder="Author Name"/>
+                    <input type="text" class="form-control" name="title" placeholder="Author Name" ng-model="storyCtrl.newStory.author"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-8">
                     <label class="control-label">Title</label>
-                    <input type="text" class="form-control" name="title" placeholder="Title of the story"/>
+                    <input type="text" class="form-control" name="title" placeholder="Title of the story" ng-model="storyCtrl.newStory.title"/>
                 </div>
                 <div class="col-xs-4">
                     <label class="control-label">Sub-Title</label>
-                    <input type="text" class="form-control" name="subtitle" placeholder="Sub-Title of the story"/>
+                    <input type="text" class="form-control" name="subtitle" placeholder="Sub-Title of the story" ng-model="storyCtrl.newStory.subTitle"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-4 selectContainer">
                     <label class="control-label">Category</label>
-                    <select class="form-control" name="category">
+                    <select class="form-control" name="category" ng-model="storyCtrl.newStory.category">
                         <option value="">Choose a category</option>
                         <option value="fashion">Fashion</option>
                         <option value="beauty">Beauty</option>
@@ -35,7 +36,7 @@
                 </div>
                 <div class="col-xs-4 selectContainer">
                     <label class="control-label">Sub-Category</label>
-                    <select class="form-control" name="category">
+                    <select class="form-control" name="subCategory" ng-model="storyCtrl.newStory.subCategory">
                         <option value="">Choose a sub-category</option>
                         <option value="fashion">Fashion</option>
                         <option value="beauty">Beauty</option>
@@ -45,50 +46,20 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="row">
-                <div class="col-xs-8 selectContainer" ng-controller="TagController as tagCtrl">
-                    <label class="control-label">Select Tags</label>
-                    <div>
-                        <div class="panel-body fill-height">
-                            <input class="form-control input-sm" type="text" placeholder="Search Tags" ng-model="queryTag">
-                            <div class="well well-sm tags-well">
-                                <div class="tag-bubble" ng-repeat="tag in tags | searchKey: queryTag" ng-click="selectTag(tag)">{{tag.$id}}</div>
-                            </div>
-                            <div>
-                                <div class="selected-tag-bubble" ng-repeat="selectedTag in selectedTags" ng-click="unselectTag(selectedTag)">{{selectedTag.$id}}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-1 selectContainer">
-                        <label class="control-label">Add New Tag</label>
-                    </div>
-                    <div class="col-xs-2 selectContainer">
-                        <input type="text" class="form-control" name="NewTag" placeholder="Enter New Tag Name"/>
-                    </div>
-                    <div class="col-xs-1 selectContainer">
-                        <label class="control-label"><button type="add" class="btn btn-primary" id="add">Add</button></label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
             <label class="control-label">TextInitial</label>
-            <textarea class="form-control" name="textInitial" rows="4"></textarea>
+            <textarea class="form-control" name="textInitial" rows="4" ng-model="storyCtrl.newStory.textInitial"></textarea>
         </div>
 
         <div class="form-group">
             <label class="control-label">Carousel</label>
-            <div class="row">
+            <div class="row" ng-repeat="carouselItem in carousel.Item">
                 <div class="col-xs-6 selectContainer">
                     <label class="control-label">Item Text</label>
-                    <textarea class="form-control" name="ItemText" rows="2" placeholder="Enter Carousel Item Text"></textarea>
+                    <textarea class="form-control" name="ItemText" rows="2" placeholder="Enter Carousel Item Text" ng-model="carouselItem.text"></textarea>
                 </div>
                 <div class="col-xs-1 selectContainer">
                     <label class="control-label">Item Position</label>
-                    <select class="form-control" name="category">
+                    <select class="form-control" name="position" ng-model="carouselItem.position">
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -103,13 +74,50 @@
                         <option value="11">11</option>
                     </select>
                 </div>
-                <div class="col-xa-5 selectContainer">
+                <div class="col-xa-3 selectContainer">
                     <label class="control-label">Image</label>
                     <!--code to upload image-->
+                    <!--div ng-controller="ImageUpload" class="fb-image-upload">
+                        <form ng-click="upload_image(image)">
+                            <div class="fb-error" ng-show="error">{{error}}</div>
+                            <div class="fb-inputs" ng-hide="image.isUploading">
+                                <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" name="image"/>
+                                <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid"/>
+                            </div>
+                            <div class="fb-uploading" ng-show="image.isUploading">
+                                Uploading...
+                            </div>
+                        </form>
+                    </div-->
+                    <div>
+                        <input type="file" ng-file-select="onFileSelect($files)" multiple ng-model="carousel.image">
+                    </div>
+                </div>
+                <div class="col-xa-2 selectContainer">
+                    <!--add another item code-->
+
                 </div>
             </div>
-            <div>
-                <!--add another item code-->
+            <button type="add" class="btn btn-primary" ng-click="addCarousel()">
+                +
+            </button>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-8 selectContainer">
+                    <label class="control-label">Select Tags</label>
+                    <div>
+                        <div class="panel-body fill-height">
+                            <input class="form-control input-sm" type="text" placeholder="Search Tags" ng-model="storyCtrl.queryTag">
+                            <div class="well well-sm tags-well">
+                                <div class="tag-bubble" ng-repeat="tag in tags | searchKey: storyCtrl.queryTag" ng-click="selectTag(tag)">{{tag.$id}}</div>
+                            </div>
+                            <div>
+                                <div class="selected-tag-bubble" ng-repeat="selectedTag in selectedTags" ng-click="unselectTag(selectedTag)">{{selectedTag.$id}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -117,12 +125,17 @@
         <input type="hidden" name="status" value="unpublished" />
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
-            <button type="submit" class="btn btn-default" id="publishButton">Save and publish</button>
+            <button type="submit" class="btn btn-secondary" id="saveButton">Save</button>
+            <button type="submit" class="btn btn-primary" id="publishButton">Save and publish</button>
+        </div>
         </div>
     </form>
 </body>
+<script src="angular-file-upload-shim.min.js"></script>
+<script src="angular.min.js"></script>
+<script src="angular-file-upload.min.js"></script>
 <script src="/app/app.js"></script>
+<script src="ng-file-upload.js"></script>
 <script src="/app/controller/controllers/story_controllers.js"></script>
 <script src="/app/controller/filters.js"></script>
 <script src="/app/controller/services.js"></script>
