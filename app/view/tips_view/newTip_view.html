@@ -5,76 +5,48 @@
     <title>Tips</title>
 </head>
 <body>
+<div class="tip">
     <form id="articleForm" method="post">
-        <div class="form-group">
-            <div class="row">
-                <div class="col-xs-4 selectContainer">
-                    <label class="control-label">Category</label>
-                    <select class="form-control" name="category">
-                        <option value="">Choose a category</option>
-                        <option value="fashion">Fashion</option>
-                        <option value="beauty">Beauty</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div class="col-xs-4 selectContainer">
-                    <label class="control-label">Sub-Category</label>
-                    <select class="form-control" name="category">
-                        <option value="">Choose a sub-category</option>
-                        <option value="fashion">Fashion</option>
-                        <option value="beauty">Beauty</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-xs-8 selectContainer" ng-controller="TagController as tagCtrl">
-                    <label class="control-label">Select Tags</label>
+        <label class="control-label">Category</label>
+        <select class="form-control" name="category">
+            <option value="">Choose a category</option>
+            <option value="fashion">Fashion</option>
+            <option value="beauty">Beauty</option>
+            <option value="other">Other</option>
+        </select>
+        <label class="control-label">Sub-Category</label>
+        <select class="form-control" name="subCategory">
+            <option value="">Choose a sub-category</option>
+            <option value="fashion">Fashion</option>
+            <option value="beauty">Beauty</option>
+            <option value="other">Other</option>
+        </select>
+        <div ng-controller="TagController as tagCtrl">
+            <label class="control-label">Select Tags</label>
+                    <input class="form-control input-sm" type="text" placeholder="Search Tags" ng-model="queryTag">
+                    <div class="well well-sm tags-well">
+                        <div class="tag-bubble" ng-repeat="tag in tags | searchKey: queryTag" ng-click="selectTag(tag)">{{tag.$id}}</div>
+                    </div>
                     <div>
-                        <div class="panel-body fill-height">
-                            <input class="form-control input-sm" type="text" placeholder="Search Tags" ng-model="queryTag">
-                            <div class="well well-sm tags-well">
-                                <div class="tag-bubble" ng-repeat="tag in tags | searchKey: queryTag" ng-click="selectTag(tag)">{{tag.$id}}</div>
-                            </div>
-                            <div>
-                                <div class="selected-tag-bubble" ng-repeat="selectedTag in selectedTags" ng-click="unselectTag(selectedTag)">{{selectedTag.$id}}</div>
-                            </div>
-                        </div>
+                        <div class="selected-tag-bubble" ng-repeat="selectedTag in selectedTags" ng-click="unselectTag(selectedTag)">{{selectedTag.$id}}</div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-1 selectContainer">
-                        <label class="control-label">Add New Tag</label>
-                    </div>
-                    <div class="col-xs-2 selectContainer">
-                        <input type="text" class="form-control" name="NewTag" placeholder="Enter New Tag Name"/>
-                    </div>
-                    <div class="col-xs-1 selectContainer">
-                        <label class="control-label"><button type="add" class="btn btn-primary" id="add">Add</button></label>
-                    </div>
-                </div>
-            </div>
         </div>
-
-        <div class="form-group">
+        <label class="control-label">Add New Tag</label>
+        <input type="text" class="form-control" name="NewTag" placeholder="Enter New Tag Name"/>
+        <button class="addfields" id="add">Add</button>
+        <div>
             <label class="control-label">Tip</label>
-            <textarea class="form-control" name="tip" rows="10"></textarea>
+            <textarea class="form-control" name="tip" rows="6"></textarea>
         </div>
-        <div class="col-xa-6 selectContainer">
-            <label class="control-label">Upload Images</label>
+        <div>
+            <label class="control-label formSpacing">Upload Images</label>
             <!--code to upload multiple images-->
         </div>
 
         <!-- The default publishing status -->
-        <input type="hidden" name="status" value="unpublished" />
-
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
-            <button type="submit" class="btn btn-default" id="publishButton">Save and publish</button>
-        </div>
+        <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
     </form>
+</div>
 </body>
 <script src="/app/app.js"></script>
 <script src="/app/controller/controllers/tips_controllers.js"></script>

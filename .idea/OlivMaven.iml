@@ -9,5 +9,17 @@
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="angularfire" level="application" />
     <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="angular-ui-router" level="application" />
+    <orderEntry type="library" name="angular" level="application" />
+    <orderEntry type="library" name="firebase" level="application" />
+    <orderEntry type="library" name="jquery-2.2.3" level="application" />
+    <orderEntry type="library" name="angularfire" level="application" />
+    <orderEntry type="library" name="angular-animate" level="application" />
+    <orderEntry type="library" name="bootbox" level="application" />
+    <orderEntry type="library" name="firebase-app" level="application" />
+    <orderEntry type="library" name="firebase-auth" level="application" />
+    <orderEntry type="library" name="firebase-database" level="application" />
+    <orderEntry type="library" name="firebase-storage" level="application" />
+    <orderEntry type="library" name="material" level="application" />
   </component>
 </module>

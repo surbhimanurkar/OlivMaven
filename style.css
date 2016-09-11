@@ -164,6 +164,15 @@ html, body {
     background-position: center center;
     background-repeat: no-repeat;
 }
+.image {
+    width: 200px;
+    height: 200px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.chat-text {
+    font-size: 13px;
+}
 .chat-bubble{
     border-radius: 5px;
     box-shadow: 0 0 1px darkgray;
@@ -227,6 +236,37 @@ html, body {
 }
 .float-right{
     float: right;
+}
+.story{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.tip{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.addfields{
+    margin: 10px 0;
+}
+.formSpacing{
+    margin: 10px 0;
+}
+.remove{
+    margin: 10px 0;
+    background: #C76868;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 21px;
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
+    padding: 4px 9px;
+    vertical-align: top;
+    line-height: 100%;
 }
 .input-new-tag{
     width: 80%;

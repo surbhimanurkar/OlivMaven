@@ -10,15 +10,15 @@
         <div class="title-block">
             <div class="container">
                 <ul class="nav nav-pills">
-                    <li ng-class="{ active:tabs.isSelected(1)}"><a href="#" ng-click="tabs.selectTab(1)">All Stories</a></li>
-                    <li ng-class="{ active:tabs.isSelected(2)}"><a href="#" ng-click="tabs.selectTab(2)">Add Story</a></li>
+                    <li ng-class="{ active:tabs.isSelected(2)}"><a href="#" ng-click="tabs.selectTab(2)">All Stories</a></li>
+                    <li ng-class="{ active:tabs.isSelected(1)}"><a href="#" ng-click="tabs.selectTab(1)">Add Story</a></li>
                 </ul>
             </div>
         </div>
-        <div ng-show="tabs.isSelected(1)" class="fill-height-tab">
-            <div ng-include="'app/view/story_view/allStory_view.html'"></div>
-        </div>
         <div ng-show="tabs.isSelected(2)" class="fill-height-tab">
+            <div ng-include="'app/view/story_view/allStories_view.html'"></div>
+        </div>
+        <div ng-show="tabs.isSelected(1)" class="fill-height-tab">
             <div ng-include="'app/view/story_view/newStory_view.html'"></div>
         </div>
     </div>
@@ -29,5 +29,4 @@
 <script src="/app/controller/filters.js"></script>
 <script src="/app/controller/services.js"></script>
 <script src="/app/controller/directives.js"></script>
-<script src="//oss.maxcdn.com/bootbox/4.2.0/bootbox.min.js"></script>
 </html>

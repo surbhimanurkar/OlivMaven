@@ -10,15 +10,15 @@
         <div class="title-block">
             <div class="container">
                 <ul class="nav nav-pills">
-                    <li ng-class="{ active:tabs.isSelected(1)}"><a href="#" ng-click="tabs.selectTab(1)">All Tips</a></li>
-                    <li ng-class="{ active:tabs.isSelected(2)}"><a href="#" ng-click="tabs.selectTab(2)">Add Tip</a></li>
+                    <li ng-class="{ active:tabs.isSelected(2)}"><a href="#" ng-click="tabs.selectTab(2)">All Tips</a></li>
+                    <li ng-class="{ active:tabs.isSelected(1)}"><a href="#" ng-click="tabs.selectTab(1)">Add Tip</a></li>
                 </ul>
             </div>
         </div>
-        <div ng-show="tabs.isSelected(1)" class="fill-height-tab">
+        <div ng-show="tabs.isSelected(2)" class="fill-height-tab">
             <div ng-include="'app/view/story_view/allTips_view.html'"></div>
         </div>
-        <div ng-show="tabs.isSelected(2)" class="fill-height-tab">
+        <div ng-show="tabs.isSelected(1)" class="fill-height-tab">
             <div ng-include="'app/view/tips_view/newTip_view.html'"></div>
         </div>
     </div>

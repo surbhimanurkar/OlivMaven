@@ -36,7 +36,8 @@
                     <ul class="list-group">
                         <li class="list-group-item chat-list" ng-repeat="chat in chats">
                             <div class="chat-bubble" ng-class="{'oliv-chat':(chat.author === 1)}">
-                                <img src = {{chat.image}}>{{chat.message}}
+                                <div ng-if = "chat.image"><img class="image" ng-src = {{chat.image}}><br></div>
+                                <div ng-if = "chat.message" class="chat-text">{{chat.message}}</div>
                             </div>
                         </li>
                     </ul>

@@ -1,4 +1,4 @@
-var app = angular.module("OlivMaven", ["firebase"]);
+var app = angular.module("OlivMaven", ['firebase']);
 app.controller("TabController", function () {
     this.tab = 1;
     this.selectTab = function (setTab) {

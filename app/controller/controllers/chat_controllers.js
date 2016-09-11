@@ -22,8 +22,8 @@ app.controller("ChatController", function ($scope, $http, $log, $firebaseArray) 
     $scope.selectConversation = function (setUser) {
         $scope.user = setUser;
         getChats($scope, $firebaseArray);
-        getProfileInfo(setUser);
-        getProfilePicture(setUser);
+        //getProfileInfo(setUser);
+        //getProfilePicture(setUser);
     };
     $scope.isUserSelected = function (checkUID) {
         return ($scope.user.$id.localeCompare(checkUID) === 0);
@@ -98,21 +98,21 @@ app.controller("ChatController", function ($scope, $http, $log, $firebaseArray) 
         }
     };
 
-    $scope.getProfileInfo = function (setUser) {
-        if ($scope.user.profileInfo) {
-            return $scope.user.profileInfo;
-        } else {
-            return;
-        }
-    };
+    // $scope.getProfileInfo = function (setUser) {
+    //     if ($scope.user.profileInfo) {
+    //         return $scope.user.profileInfo;
+    //     } else {
+    //         return;
+    //     }
+    // };
 
-    $scope.getProfilePicture = function () {
-        if ($scope.user.image) {
-            return $scope.user.image;
-        } else {
-            return;
-        }
-    };
+    // $scope.getProfilePicture = function () {
+    //     if ($scope.user.image) {
+    //         return $scope.user.image;
+    //     } else {
+    //         return;
+    //     }
+    // };
 
     $scope.isOpen = function (checkUser) {
         return checkUser.status === 'OPEN';
@@ -124,9 +124,9 @@ function sendChatNotification($scope, $http) {
     var userId = $scope.user.$id;
     var jsonBody = {
         "group_id": "messages",
-        "priority":"high",
+        "priority":"normal",
         "recipients": {
-            "custom_ids": [userId]
+            "custom_ids": ["userId"]
         },
         "message": {
             "title": "Parapluie",
@@ -143,7 +143,7 @@ function sendChatNotification($scope, $http) {
     var batch_url = "https://api.batch.com/1.0/"+BATCH_API_KEY+"/transactional/send";
     var req = {
         method: 'POST',
-        url: batch_url,//"https://api.batch.com/1.0/DEV57A08F6E6FE36C56522B32FFB78/transactional/send",
+        url: batch_url,
         data: JSON.stringify(jsonBody),
         headers: {
             "Content-Type": "application/json",
@@ -178,7 +178,7 @@ function getChats ($scope, $firebaseArray) {
         });
     }, true);
 
-};
+}
 
 
 

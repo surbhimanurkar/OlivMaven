@@ -7,9 +7,18 @@
     <!--
     <link data-require="bootstrap@*" data-semver="3.3.6" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <script data-require="bootstrap@*" data-semver="3.3.6" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
     -->
-
+    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCE4BJQDHTTp_NmLiLSMLdJxSYzhw64UaE",
+            authDomain: "askoliv.firebaseapp.com",
+            databaseURL: "https://askoliv.firebaseio.com",
+            storageBucket: "askoliv.appspot.com"
+        };
+        firebase.initializeApp(config);
+    </script>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="image/umbrella.jpg"/>
@@ -24,7 +33,7 @@
                 <li ng-class="{ active:tabs.isSelected(1)}"><a href="#" ng-click="tabs.selectTab(1)">Chat</a></li>
                 <li ng-class="{ active:tabs.isSelected(2)}"><a href="#" ng-click="tabs.selectTab(2)">Tips</a></li>
                 <li ng-class="{ active:tabs.isSelected(3)}"><a href="#" ng-click="tabs.selectTab(3)">Stories</a></li>
-                <li ng-class="{ active:tabs.isSelected(4)}"><a href="#" ng-click="tabs.selectTab(4)">Admin</a></li>
+                <!--<li ng-class="{ active:tabs.isSelected(4)}"><a href="#" ng-click="tabs.selectTab(4)">Admin</a></li>-->
             </ul>
         </div>
     </div>
@@ -49,7 +58,7 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="app/app.js"></script>
 <script src="app/controller/controllers/chat_controllers.js"></script>
-<script src="/app/controller/controllers/story_controllers.js"></script>
+<script src="app/controller/controllers/story_controllers.js"></script>
 <script src="app/controller/filters.js"></script>
 <script src="app/controller/services.js"></script>
 <script src="app/controller/directives.js"></script>
