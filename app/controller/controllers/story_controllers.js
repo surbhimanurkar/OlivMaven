@@ -9,7 +9,7 @@ var storage = firebase.storage();
 var storageRef = storage.ref();
 app.controller("StoryController", function ($scope, $log, $firebaseArray) {
     console.log("entering storyController");
-    var storyRef = fireRef.child("stories");
+    var storyRef = fireRef.child("stories").child("published");
     $scope.stories = $firebaseArray(storyRef);
     console.log("got stories");
 
@@ -144,7 +144,6 @@ app.controller("StoryController", function ($scope, $log, $firebaseArray) {
             //subCategory : $scope.subCategory,
             textInitial : $scope.textInitial,
             carousel : carouselMap,
-            published : true,
             timePublished : Firebase.ServerValue.TIMESTAMP
         };
         console.log("adding new story");
@@ -182,7 +181,6 @@ app.controller("StoryController", function ($scope, $log, $firebaseArray) {
             //subCategory : $scope.subCategory,
             textInitial : $scope.textInitial,
             carousel : carouselMap,
-            published : false,
             timePublished : Firebase.ServerValue.TIMESTAMP
         };
         console.log("drafting new story");

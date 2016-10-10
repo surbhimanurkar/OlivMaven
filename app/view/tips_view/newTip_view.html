@@ -2,51 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tips</title>
+    <title>New Tip</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
 </head>
 <body>
-<div class="tip">
-    <form id="articleForm" method="post">
-        <label class="control-label">Category</label>
-        <select class="form-control" name="category">
-            <option value="">Choose a category</option>
-            <option value="fashion">Fashion</option>
-            <option value="beauty">Beauty</option>
-            <option value="other">Other</option>
-        </select>
-        <label class="control-label">Sub-Category</label>
-        <select class="form-control" name="subCategory">
-            <option value="">Choose a sub-category</option>
-            <option value="fashion">Fashion</option>
-            <option value="beauty">Beauty</option>
-            <option value="other">Other</option>
-        </select>
-        <div ng-controller="TagController as tagCtrl">
-            <label class="control-label">Select Tags</label>
-                    <input class="form-control input-sm" type="text" placeholder="Search Tags" ng-model="queryTag">
-                    <div class="well well-sm tags-well">
-                        <div class="tag-bubble" ng-repeat="tag in tags | searchKey: queryTag" ng-click="selectTag(tag)">{{tag.$id}}</div>
-                    </div>
-                    <div>
-                        <div class="selected-tag-bubble" ng-repeat="selectedTag in selectedTags" ng-click="unselectTag(selectedTag)">{{selectedTag.$id}}</div>
-                    </div>
-        </div>
-        <label class="control-label">Add New Tag</label>
-        <input type="text" class="form-control" name="NewTag" placeholder="Enter New Tag Name"/>
-        <button class="addfields" id="add">Add</button>
-        <div>
-            <label class="control-label">Tip</label>
-            <textarea class="form-control" name="tip" rows="6"></textarea>
-        </div>
-        <div>
-            <label class="control-label formSpacing">Upload Images</label>
-            <!--code to upload multiple images-->
-        </div>
+<section id="user-section" class="scrollable" ng-controller="TipsController as tipsCtrl" ng-init='loadTip()'>
+    <div class="tip">
+            <form>
+                <!--<label class="control-label">Category</label>
+                <select class="form-control" name="category" ng-model="category">
+                    <option value="">Choose a category</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="beauty">Beauty</option>
+                    <option value="other">Other</option>
+                </select>
+                <label class="control-label">Sub-Category</label>
+                <select class="form-control" name="subCategory" ng-model="subCategory">
+                    <option value="">Choose a sub-category</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="beauty">Beauty</option>
+                    <option value="other">Other</option>
+                </select>-->
+                <label class="control-label formSpacing">Upload Image</label>
+                <input type="file" id="fileTip" name="file"/>
+                <label class="control-label">Select Tags</label>
+                <div>
+                    <div class="panel-body fill-height">
+                        <input class="form-control input-sm" type="text" placeholder="Search Tags" ng-model="queryTag">
+                        <div class="well well-sm tags-well">
+                            <div class="tag-bubble" ng-repeat="tag in tags | searchKey: queryTag" ng-click="selectTag(tag)">{{tag.$id}}</div>
+                        </div>
+                        <div>
+                            <div class="selected-tag-bubble" ng-repeat="selectedTag in selectedTags" ng-click="unselectTag(selectedTag)">{{selectedTag.$id}}</div>
+                        </div>
+                        </div>
+                </div>
+                <div>
+                    <label class="control-label">Add New Tag</label>
+                    <input type="text" class="form-control" name="NewTag" placeholder="Enter New Tag Name" ng-model="newTag"/>
+                    <button class="addfields" id="add" ng-click="addTag()">Add</button>
+                    <ul>{{myTxt}}</ul>
+                </div>
+                <label class="control-label">Tip</label>
+                <textarea class="form-control" name="tip" rows="6" ng-model="tip"></textarea>
 
-        <!-- The default publishing status -->
-        <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
-    </form>
-</div>
+                <button class="btn btn-primary" ng-click="submitTip()">Submit</button>
+            </form>
+    </div>
+</section>
 </body>
 <script src="/app/app.js"></script>
 <script src="/app/controller/controllers/tips_controllers.js"></script>
