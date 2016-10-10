@@ -8,6 +8,7 @@ app.controller("ChatController", function ($scope, $http, $log, $firebaseArray) 
     //Retrieving users
     var userRef = fireRef.child('user').orderByChild('resolved').equalTo(false);
     $scope.users = $firebaseArray(userRef);
+    $scope.currentTime = new Date().toTimeString().split(" ")[0];
     /*$scope.allChats = [];
     $scope.users.forEach(function () {
         var chatRef = fireRef.child("chat").child($scope.user.$id);
