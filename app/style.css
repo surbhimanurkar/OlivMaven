@@ -1,8 +1,6 @@
 @font-face {
     font-family: 'OlivTitle';
-    /*
     src: url('bootstrap/fonts/GrandHotel-Regular.ttf')  format('truetype');
-    */
     font-weight: normal;
 }
 html, body {
@@ -140,7 +138,20 @@ html, body {
     box-shadow: none;
 }
 .send-btn{
+    position: center;
     background-color: transparent;
+    z-index: 1;
+}
+.input-btn{
+    position: relative;
+    font-size: xx-small;
+    text-align: right;
+    -moz-opacity:0 ;
+    filter:alpha(opacity: 0);
+    opacity: 0;
+    height: 1px;
+    width: 10px;
+    z-index: 2;
 }
 .input-span{
     width: 40px;
@@ -148,11 +159,11 @@ html, body {
 .input-group{
     width: 100%;
 }
-.glyphicon-send{
+.glyphicon-paperclip{
     color: #F64747;
     font-size: x-large;
 }
-.image-send{
+.glyphicon-send{
     color: #F64747;
     font-size: x-large;
 }
@@ -171,13 +182,22 @@ html, body {
     background-repeat: no-repeat;
 }
 .image {
-    width: 200px;
-    height: 200px;
-    background-position: center center;
-    background-repeat: no-repeat;
+    /*background-position: center center;
+    background-repeat: no-repeat;*/
+    width: auto;
+    max-width: 200px;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover; /* Do not scale the image */
+    object-position: center; /* Center the image within the element */
 }
 .chat-text {
     font-size: 13px;
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+    overflow-wrap: break-word;
 }
 .chat-bubble{
     border-radius: 5px;
@@ -190,10 +210,22 @@ html, body {
     vertical-align: top;
     clear: both;
     float: left;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    max-width: 90%;
 }
 .oliv-chat {
     background-color: #FEF3AF;
+    box-shadow: 0 0 1px darkgray;
+    display: inline-block;
     float: right;
+    max-width: 90%;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -webkit-user-select:none;
+    -moz-user-select:none;
 }
 .status-buttons-group{
     float: right;
