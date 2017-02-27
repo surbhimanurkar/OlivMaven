@@ -23,5 +23,6 @@
     <orderEntry type="library" name="material" level="application" />
     <orderEntry type="library" name="jquery-2.1.4" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="bootstrap-toggle" level="application" />
   </component>
 </module>

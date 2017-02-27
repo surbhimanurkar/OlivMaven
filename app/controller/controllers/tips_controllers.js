@@ -103,7 +103,7 @@ app.controller("TipsController", function ($scope, $log, $firebaseArray) {
                     console.log('7-'+j);
                     tagsObject[key] = true;
                     var currentTag = $scope.selectedTags[j].$id;
-                    tagRef.child(currentTag).child('suggestions/').set(newSug);
+                    tagRef.child(currentTag).child('suggestions/').update(newSug);
                 }
                 /*$scope.category = '';
                 $scope.subCategory = '';*/

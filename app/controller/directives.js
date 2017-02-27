@@ -1,16 +1,54 @@
 app.directive('scroll', function($timeout) {
     return {
         restrict: 'A',
-        link: function(scope, element, attr) {
-            scope.$watchCollection(attr.scroll, function() {
+        scope: {
+            scroll: "="
+        },
+        link: function($scope, $element) {
+            $scope.$watchCollection('scroll', function() {
                 $timeout(function() {
-                    element[0].scrollTop = element[0].scrollHeight;
+                    $element[0].scrollTop = $element[0].scrollHeight;
                 });
             });
         }
     }
 });
 
+/*app.directive('ngScrollBottom', ['$timeout', function ($timeout) {
+    return {
+        scope: {
+            ngScrollBottom: "="
+        },
+        link: function ($scope, $element) {
+            $scope.$watchCollection('ngScrollBottom', function (newValue) {
+                if (newValue) {
+                    $timeout(function(){
+                        $element.scrollTop($element.prop("scrollHeight"));
+                    }, 0);
+                }
+            });
+        }
+    }
+}]);*/
+
+
+/*app.directive('scrollBottom', function () {
+    return {
+        scope: {
+            scrollBottom: "="
+        },
+        link: function (scope, element, attr) {
+            scope.$watchCollection(attr.scrollBottom, function (newValue) {
+                if (newValue)
+                {
+                    $(element).scrollTop($(element)[0].scrollHeight);
+                }
+            });
+        }
+    }
+});*/
+
+/*
 app.directive('fbImageUpload', [function() {
         return {
             link: function(scope, element, attrs) {
@@ -72,10 +110,10 @@ app.directive('fbImageUpload', [function() {
 app.directive('fbSrc', ['$log', function ($log) {
         // Used to embed images stored in Firebase
 
-        /*
+        /!*
          Required attributes:
          fp-src (The name of an image stored in Firebase)
-         */
+         *!/
         return {
             link: function (scope, elem, attrs) {
                 var safename = attrs.fpSrc.replace(/\.|\#|\$|\[|\]|-|\//g, "");
@@ -92,4 +130,4 @@ app.directive('fbSrc', ['$log', function ($log) {
             },
             restrict: 'A'
         };
-    }]);
+    }]);*/

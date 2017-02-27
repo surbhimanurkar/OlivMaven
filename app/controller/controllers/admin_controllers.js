@@ -1,14 +1,24 @@
 var firebaseUrl = "https://askoliv.firebaseio.com/";
 var fireRef = new Firebase(firebaseUrl);
-app.controller("ManageTagsController", function ($scope, $firebaseArray) {
-    var tagRef = fireRef.child("tags");
-    console.log("Here");
-    $scope.tags = $firebaseArray(tagRef.orderByKey());
-    $scope.$watch('tags',function () {
-        $scope.tags.forEach(function (tag) {
-            if(!tag || !tag.$id){
-                return;
-            }
-        });
-    },true);
+
+app.controller("AdminController", function ($scope, $firebaseArray, $firebaseObject) {
+    var configRef = fireRef.child('config');
+    $scope.chatActive = false;
+    getActive($scope);
+    $scope.active;
+    $scope.changeState = function (){
+        console.log("active changed to : " + $scope.active );
+        if($scope.active == "true"){
+            configRef.update({active : true});
+        } else {
+            configRef.update({active : false});
+        }
+    };
 });
+function getActive($scope) {
+    var configActiveRef = fireRef.child('config').child('active');
+    configActiveRef.transaction(function (currentValue) {
+        $scope.chatActive = currentValue;
+        return currentValue;
+    }, function(){}, false);
+}

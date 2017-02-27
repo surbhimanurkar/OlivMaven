@@ -10,7 +10,7 @@ html, body {
     height: 100%;
 }
 .fill-height-tab{
-    height: 75%;
+    height: 87%;
 }
 .fill-height-collapsible{
     max-height: calc(100% - 40px);
@@ -26,17 +26,19 @@ html, body {
     font-family: OlivTitle;
     color: #F64747;
     letter-spacing: -1px;
-    font-size: 45px;
+    font-size: 35px;
+    display : inline;
 }
 .subtitle{
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: normal;
-    font-size: 26px;
+    font-size: 20px;
     color: #6b6b6b;
 }
 .title-block{
     background-color: white;
     box-shadow: 0 0 5px #747474;
+
 }
 .nav-pills > li.active > a, .nav-pills > li.active > a:focus {
     color: #F64747;
@@ -88,6 +90,7 @@ html, body {
 .user-list{
     margin: 0;
     padding: 0;
+    overflow: auto;
 }
 .list-group-item.active, .list-group-item > a:focus, .list-group-item.active:hover, .list-group-item.active:focus{
     background-color: #FEF3AF;
@@ -110,7 +113,7 @@ html, body {
 }
 .chat-block{
     height: calc(100% - 84px);
-    overflow: auto;
+    overflow: scroll;
     margin-bottom: 0;
     background-color: #eeeeee;
 }
@@ -191,6 +194,16 @@ html, body {
     object-fit: cover; /* Do not scale the image */
     object-position: center; /* Center the image within the element */
 }
+.tip-image {
+    /*background-position: center center;
+    background-repeat: no-repeat;*/
+    width: auto;
+    max-width: 100px;
+    height: auto;
+    max-height: 100px;
+    object-fit: cover; /* Do not scale the image */
+    object-position: center; /* Center the image within the element */
+}
 .chat-text {
     font-size: 13px;
     white-space: pre-wrap; /* css-3 */
@@ -198,6 +211,16 @@ html, body {
     white-space: -o-pre-wrap; /* Opera 7 */
     word-wrap: break-word; /* Internet Explorer 5.5+ */
     overflow-wrap: break-word;
+}
+.tip-text{
+    font-size: 12px;
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+    overflow-wrap: break-word;
+    position: relative;
+    float: right;
 }
 .time{
     font-size:9px;
@@ -222,8 +245,6 @@ html, body {
     float: left;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    -webkit-user-select:none;
-    -moz-user-select:none;
     max-width: 90%;
 }
 .oliv-chat {
@@ -234,8 +255,6 @@ html, body {
     max-width: 90%;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    -webkit-user-select:none;
-    -moz-user-select:none;
 }
 .status-buttons-group{
     float: right;
@@ -249,6 +268,25 @@ html, body {
     background-color: white;
     cursor: pointer;
 }
+.tag-in-tip{
+    border-radius: 1px;
+    box-shadow: 0 0 0px darkgray;
+    display: inline-block;
+    padding: 1px;
+    margin: 1px;
+    background-color: white;
+    font-size: 9px;
+}
+.tip-bubble{
+    border-radius: 2px;
+    display: inline-block;
+    padding: 5px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    background-color: white;
+    cursor: pointer;
+    width: 100%;
+}
 .tags-well{
     overflow: auto;
     margin-bottom: 10px;
@@ -256,8 +294,10 @@ html, body {
 }
 .search-results-well{
     overflow: auto;
-    max-height: 200px;
+    padding : 0;
+    margin : 0;
     margin-bottom: 0;
+    background-color: lightgray;
 }
 .selected-tag-bubble{
     border-radius: 2px;

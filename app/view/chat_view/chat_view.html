@@ -30,16 +30,19 @@
     <script src="src/link-preview/js/link-preview-database.js" type="text/javascript"></script>-->
 </head>
 <body>
-    <div class="container panel container-tab fill-height">
-        <section id="user-section" ng-controller="ChatController as chatCtrl" ng-init='load()' class="fill-height">
+    <div class="container-fluid panel container-tab fill-height">
+         <section id="user-section" ng-controller="ChatController as chatCtrl" ng-init='load()' class="fill-height">
             <!--user list column of the chat page-->
-            <div class="col-sm-3 column-users">
-                <div class="list-group user-list">
+            <div class="col-sm-2 column-users">
+                <div class="list-group user-list fill-height">
                     <div ng-repeat="user in users">
                         <a href="#" class="list-group-item"
                            ng-click="selectConversation(user)"
                            ng-class="{active:isUserSelected(user.$id)}">
-                            {{user.username}}
+                            <span class="label" style="float: left; color:red;">
+                                {{unreadBadgeMap[user.$id] == true ? '@':''}}
+                            </span>
+                            {{user.username | limitTo : 13}} {{user.username.length < 14 ? '' :'...'}}
                             <span class="label" ng-class="{'label-primary': isOpen(user), 'label-success': !isOpen(user)}" style="float: right">
                                 {{user.status | capitalcase}}
                             </span>
@@ -48,7 +51,7 @@
                 </div>
             </div>
             <!--chat column of the chat page-->
-            <div class="col-sm-4 column-chat divider-left divider-right">
+            <div class="col-sm-3 column-chat divider-left divider-right">
                 <div class="heading-chat-block">
                     <span class="text-chat-heading">{{user.username}}</span>
                     <span class="btn-group btn-group-xs status-buttons-group">
@@ -56,7 +59,7 @@
                         <button class="btn btn-success" id="btn-resolved" ng-click="markResolved()">Resolved</button>
                     </span>
                 </div>
-                <div class="container-fluid chat-block well" scroll="chats">
+                <div class="container-fluid chat-block well" id= "chatscroll" scroll = "chats">
                     <ul class="list-group">
                         <li class="list-group-item chat-list" ng-repeat="chat in chats">
                             <div class="chat-bubble" ng-class="{'oliv-chat':(chat.author === 1)}">
@@ -66,7 +69,7 @@
                                     </a>
                                     <br>
                                 </div>
-                                <div ng-if = "chat.message" class="chat-text">{{chat.message}}</div>
+                                <div ng-if = "chat.message" class="chat-text" >{{chat.message}}</div>
                                 <div class="time">{{chat.time | date:'dd MMM HH:mm'}}</div>
                             </div>
                         </li>
@@ -74,8 +77,9 @@
                 </div>
                 <form ng-submit="sendReply()" class="reply-block">
                     <div id="resultDivContainer" class="input-group">
-                        <span class="input-group-btn input-span" contenteditable="true">
-                            <button class="btn send-btn" id="btn-image">
+                        <span class="input-group-btn input-span" contenteditable="false">
+                            <button class="btn send-btn" id="btn-image" >
+                                <!--ng-click="openAttachment()"-->
                                 <label class="glyphicon glyphicon-paperclip">
                                     <input class="input-btn" type="file" id="file" name="file"/>
                                 </label>
@@ -84,7 +88,7 @@
                         <div class="reply-bubble">
                             <input id="reply-input" type="text" class="form-control input reply-textbox" placeholder="Type your reply" ng-model="reply"/>
                         </div>
-                        <span class="input-group-btn input-span" contenteditable="true">
+                        <span class="input-group-btn input-span" contenteditable="false">
                             <button class="btn send-btn" id="btn-chat"><span class="glyphicon glyphicon-send"></span></button>
                         </span>
                     </div>
@@ -104,7 +108,7 @@
                 <!--</form>-->
             </div>
             <!--tips column of the chat page-->
-            <div class="col-sm-5 column-suggestions container-fluid">
+            <div class="col-sm-7 column-suggestions container-fluid">
                 <div class="panel-group fill-height" id="accordion">
                     <div class="panel panel-default">
                         <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
@@ -114,11 +118,14 @@
                         </div>
                         <div id="collapse2" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <div class="col-sm-8">
+                                <div>
                                     {{getProfileInfo()}}
                                 </div>
-                                <div class="col-sm-4">
-                                    <img src={{getProfilePicture()}} class="center-cropped">
+                                <div>
+                                    {{getUserID()}}
+                                </div>
+                                <div>
+                                    {{getUserPref()}}<button class="btn btn-secondary" ng-click="updateUserPrefs()">Edit UserPrefs</button>
                                 </div>
                             </div>
                         </div>
@@ -139,9 +146,10 @@
                                     <div class="selected-tag-bubble" ng-repeat="selectedTag in selectedTags" ng-click="unselectTag(selectedTag)">{{selectedTag.$id}}</div>
                                 </div>
                                 <div class="well well-sm search-results-well" ng-show="selectedTags.length!=0">
-                                    <div class="tag-bubble" ng-repeat="suggestion in suggestions | orderObjectBy:'matches':true" ng-click="setReply(suggestion.data.text)">
-                                        <div ng-if = "suggestion.data.image"><img class="image" ng-src = {{suggestion.data.image}}></div>
+                                    <div class="tip-bubble" ng-repeat="suggestion in suggestions | orderObjectBy:'matches':true" ng-click="setReply(suggestion.data.text)">
                                         <div ng-if = "suggestion.data.text" class="tip-text">{{suggestion.data.text}}</div>
+                                        <div ng-if = "suggestion.data.image"><img class="tip-image" ng-src = {{suggestion.data.image}}></div>
+                                        <div ng-if = "suggestion.data.tags"><span class="tag-in-tip" ng-repeat="(tagName, tagValue) in suggestion.data.tags">#{{tagName}}</span></div>
                                     </div>
                                 </div>
                             </div>

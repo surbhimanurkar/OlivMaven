@@ -5,11 +5,11 @@
     <title>StoryHome</title>
 </head>
 <body>
-<section id="user-section" class="scrollable" ng-controller="StoryController as storyCtrl">
-    <div class="story fill-height">
+<section id="user-section" class="scrollable" ng-controller="StoryController as storyCtrl1">
+    <!--<div class="story fill-height">
         <div class="col-xs-2 selectContainer">
-            <label class="control-label"> Select Stories: </label>
-            <!--<li ng-repeat="story in stories">{{ story.title }}</li>-->
+            <label class="control-label"> Select Story To Edit: </label>
+            &lt;!&ndash;<li ng-repeat="story in stories">{{ story.title }}</li>&ndash;&gt;
         </div>
         <div class="col-xs-6 selectContainer">
             <select class="form-control" name="category" ng-model="showTitle">
@@ -17,9 +17,21 @@
                 <option ng-repeat="story in stories">{{ story.title }}</option>
             </select>
         </div>
-        <div class="col-xs-2 selectContainer">
-            <button class="btn btn-primary" ng-click="showStory()">Submit</button>
+        <div class="col-xs-3 selectContainer">
+            <button class="btn btn-secondary" ng-click="showStory()">Submit</button>
         </div>
+    </div>-->
+    <div class="story">
+        <form>
+                <label class="control-label"> Select unPublished Story: </label>
+                <!--<li ng-repeat="story in stories">{{ story.title }}</li>-->
+                <select class="form-control" name="category" ng-model="showTitle">
+                    <option value=""></option>
+                    <option ng-repeat="story in unPublishedStories">{{ story.$id }}</option>
+                </select>
+                <button class="btn btn-primary" ng-click="publishStory()">Publish</button>
+
+        </form>
     </div>
 </section>
     <!--add code for showing all stories here-->

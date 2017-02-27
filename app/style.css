@@ -199,6 +199,16 @@ html, body {
     word-wrap: break-word; /* Internet Explorer 5.5+ */
     overflow-wrap: break-word;
 }
+.tip-text{
+    font-size: 12px;
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+    overflow-wrap: break-word;
+    position: relative;
+    float: right;
+}
 .time{
     font-size:9px;
     white-space: pre-wrap; /* css-3 */

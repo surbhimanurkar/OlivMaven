@@ -5,9 +5,19 @@
     <title>Admin</title>
 </head>
 <body>
-    <div class="container panel container-tab fill-height" ng-controller="ManageTagsController as manageTagsCtrl">
+<section ng-controller="AdminController as adminCtrl">
+    <div class="container-fluid panel container-tab fill-height">
         <div class="col-sm-9 fill-height">
-            Tree
+            <ul>
+                <label class="control-label"> current chat active : </label>
+                {{ chatActive }}
+            </ul>
+            <form class="form" ng-submit="changeState()">
+                <label class="control-label"> chat state : </label>
+                <input type="radio" name="active" ng-model=active value=true > Chat-Active
+                <input type="radio" name="active" ng-model=active value=false > Chat-Inactive
+                <button type="submit" >Submit</button>
+            </form>
         </div>
         <div class="col-sm-3 fill-height padding-zero">
             <div class="panel panel-default fill-height">
@@ -15,7 +25,7 @@
                     <span>Tags</span>
                 </div>
                 <div class="panel-body padding-zero">
-                    <ul class="list-group">
+                    <!--<ul class="list-group">
                         <li class="list-group-item">
                             <input type="text" class="form-control input input-new-tag" placeholder="tag" ng-model="newTag"/>
                             <button type="button" class="btn btn-xs btn-primary button-add-tag">
@@ -29,12 +39,13 @@
                         </li>
                         <li class="list-group-item">#fashion<span class="label label-default float-right">12</span></li>
                         <li class="list-group-item">#makeup<span class="label label-default float-right">12</span></li>
-                    </ul>
+                    </ul>-->
                 </div>
             </div>
         </div>
 
     </div>
+</section>
 </body>
 <script src="/app/app.js"></script>
 <script src="/app/controller/controllers/admin_controllers.js"></script>

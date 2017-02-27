@@ -13,6 +13,8 @@ app.controller("StoryController", function ($scope, $log, $firebaseArray) {
     $scope.stories = $firebaseArray(storyRef);
     console.log("got stories");
 
+    var storyRef1 = fireRef.child("stories").child("unPublished");
+    $scope.unPublishedStories = $firebaseArray(storyRef1);
 
     $scope.carouselX = [];
 
@@ -184,8 +186,8 @@ app.controller("StoryController", function ($scope, $log, $firebaseArray) {
             timePublished : Firebase.ServerValue.TIMESTAMP
         };
         console.log("drafting new story");
-        if($scope.stories) {
-            $scope.stories.$add(newStory).then(function (ref) {
+        if($scope.unPublishedStories) {
+            $scope.unPublishedStories.$add(newStory).then(function (ref) {
                 var id = ref.key();
                 console.log("drafted story with id " + id);
                 $scope.author = '';
@@ -202,7 +204,19 @@ app.controller("StoryController", function ($scope, $log, $firebaseArray) {
     $scope.showTitle = '';
     $scope.showStory = function () {
         console.log("showing story");
-        
+
+    };
+
+    $scope.publishStory = function () {
+        console.log("testi : " + $scope.showTitle);
+        var oldRef = storyRef1.child($scope.showTitle);
+        var newRef = storyRef.child($scope.showTitle);
+        oldRef.once('value', function(snap)  {
+            newRef.update( snap.val(), function(error) {
+                if( !error ) {  oldRef.remove(); }
+                else if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
+            });
+        });
     };
 
     //$scope.onFileSelect = function($files) {

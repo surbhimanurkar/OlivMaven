@@ -27,15 +27,15 @@
 
 <body class="page">
 <div ng-controller="TabController as tabs" class="fill-height">
-    <div class="title-block">
+    <div class="title-block" >
         <div class="container">
             <h1 class="title">Oliv <small class="subtitle">Maven</small></h1>
-            <ul class="nav nav-pills">
+            <span style = "float: right"><ul class="nav nav-pills">
                 <li ng-class="{ active:tabs.isSelected(1)}"><a href="#" ng-click="tabs.selectTab(1)">Chat</a></li>
                 <li ng-class="{ active:tabs.isSelected(2)}"><a href="#" ng-click="tabs.selectTab(2)">Tips</a></li>
                 <li ng-class="{ active:tabs.isSelected(3)}"><a href="#" ng-click="tabs.selectTab(3)">Stories</a></li>
-                <!--<li ng-class="{ active:tabs.isSelected(4)}"><a href="#" ng-click="tabs.selectTab(4)">Admin</a></li>-->
-            </ul>
+                <li ng-class="{ active:tabs.isSelected(4)}"><a href="#" ng-click="tabs.selectTab(4)">Admin</a></li>
+            </ul></span>
         </div>
     </div>
     <div ng-show="tabs.isSelected(1)" class="fill-height-tab">
@@ -57,11 +57,13 @@
 <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
 <script src="node_modules/lightbox2/dist/js/lightbox-plus-jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="app/app.js"></script>
 <script src="app/controller/controllers/chat_controllers.js"></script>
 <script src="app/controller/controllers/tips_controllers.js"></script>
 <script src="app/controller/controllers/story_controllers.js"></script>
+<script src="app/controller/controllers/admin_controllers.js"></script>
 <script src="app/controller/filters.js"></script>
 <script src="app/controller/services.js"></script>
 <script src="app/controller/directives.js"></script>

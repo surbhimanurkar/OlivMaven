@@ -5,27 +5,58 @@ var storage = firebase.storage();
 var storageRef = storage.ref();
 app.controller("ChatController", function ($scope, $http, $log, $firebaseArray) {
 
-    //Retrieving users
-    var userRef = fireRef.child('user').orderByChild('resolved').equalTo(false);
+    //Retrieving unResolved users
+    var userRef = fireRef.child('user');//.orderByChild('resolved').equalTo(false);
+    var userPrefRef = fireRef.child('userPref');
+    $scope.userPrefs = $firebaseArray(userPrefRef);
+    $scope.unreadBadgeMap = {};
+/*
+        .once("value", function (snapshot) {
+        snapshot.forEach(function(child) {
+            console.log(child.val()) // NOW THE CHILDREN PRINT IN ORDER
+        });
+    }, function (errorObject) {
+    });
+*/
+    //.equalTo(false)
     $scope.users = $firebaseArray(userRef);
-    $scope.currentTime = new Date().toTimeString().split(" ")[0];
-    /*$scope.allChats = [];
-    $scope.users.forEach(function () {
+    var chatAllRef = fireRef.child("chat");
+    $scope.allChats = $firebaseArray(chatAllRef);
+    /*$firebaseArray(fireRef.child('user')).forEach(function () {
         var chatRef = fireRef.child("chat").child($scope.user.$id);
         $scope.currentChat = $firebaseArray(chatRef.orderByChild('time'));
         $scope.allChats = $scope.allChats.concat($scope.currentChat);
         console.log('adding chats of - '+ $scope.user.$id + ' to allChats');
+    });*/
+    /*$scope.$watch('allChats',function () {
+        var audio = new Audio('audio/glass_ping.mp3');
+        audio.play();
+    },true);*/
+    chatAllRef.on('child_changed', function(data) {
+        userChatChanged = data.key();
+        if($scope.user && $scope.user.$id != userChatChanged){
+            console.log("scope user : "+ $scope.user.$id);
+            console.log("userChatChanged : "+userChatChanged);
+            var audio = new Audio('audio/glass_ping.mp3');
+            audio.play();
+            $scope.unreadBadgeMap[userChatChanged] = true;
+            console.log("unreadBadgeMap changed for user : ", userChatChanged);
+            //Show unread bulb
+        }
+        console.log("whole data set added : " + data.val());
     });
-    $scope.$watch('allChats',function () {
+    /*$scope.$watch('allChats',function () {
         console.log('playing sound when someone pings');
         var audio = new Audio('audio/oh-really.mp3');
         audio.play();
     });*/
     
     $scope.$watch('users', function () {
-            var audio = new Audio('audio/glass_ping.mp3');
-            audio.play();
+            /*var audio = new Audio('audio/glass_ping.mp3');
+            audio.play();*/
         $scope.users.forEach(function (user) {
+            $scope.unreadBadgeMap[user.$id] = false;
+            console.log("unreadBadgeMap added for user : ", user.$id);
             if(!user || !user.username){
                 return;
             }
@@ -54,6 +85,7 @@ app.controller("ChatController", function ($scope, $http, $log, $firebaseArray) 
     //Selecting user
     $scope.selectConversation = function (setUser) {
         $scope.user = setUser;
+        $scope.unreadBadgeMap[setUser.$id] = false;
         getChats($scope, $firebaseArray);
         //getProfileInfo(setUser);
         //getProfilePicture(setUser);
@@ -100,8 +132,11 @@ app.controller("ChatController", function ($scope, $http, $log, $firebaseArray) 
                 return window.btoa(binary);
             }
         }*/
-
-        var chat = {author: 1, message: $scope.reply.trim(), time: Firebase.ServerValue.TIMESTAMP, read: false};
+        var qId = "";
+        if ($scope.user.activeQid) {
+            var qId = $scope.user.activeQid;
+        }
+        var chat = {author: 1, message: $scope.reply.trim(), time: Firebase.ServerValue.TIMESTAMP, read: false, queryId: qId};
         if(!$scope.reply.length){
             return;
         }
@@ -116,7 +151,23 @@ app.controller("ChatController", function ($scope, $http, $log, $firebaseArray) 
         }
 
     };
+/*
+    window.onscroll = doThisStuffOnScroll;
 
+    function doThisStuffOnScroll() {
+        scrolled = true;
+    }*/
+    /*var scrolled = false;
+    /!*document.getElementById('chatscroll').on('scroll', function(){
+        scrolled=true;
+    });*!/
+
+    window.setInterval(function() {
+        var elem = document.getElementById('chatscroll');
+        if(!scrolled) {
+            elem.scrollTop = elem.scrollHeight;
+        }
+    }, 2000);*/
 
     /*function handleFileSelect(evt) {
         console.log('4');
@@ -228,6 +279,7 @@ app.controller("ChatController", function ($scope, $http, $log, $firebaseArray) 
     $scope.markResolved = function(){
         var newUser = $scope.user;
         newUser.resolved = true;
+        newUser.activeQid = '';
         $scope.user = null;
         $scope.users.$save(newUser);
     };
@@ -242,6 +294,9 @@ app.controller("ChatController", function ($scope, $http, $log, $firebaseArray) 
             $scope.user.status = 'INPROGRESS';
             $scope.users.$save($scope.user);
         }else if($scope.user.status === 'INPROGRESS'){
+            $scope.user.status = 'OPEN';
+            $scope.users.$save($scope.user);
+        }else{
             $scope.user.status = 'OPEN';
             $scope.users.$save($scope.user);
         }
@@ -270,24 +325,86 @@ app.controller("ChatController", function ($scope, $http, $log, $firebaseArray) 
         }
     };
 
-    // $scope.getProfileInfo = function (setUser) {
-    //     if ($scope.user.profileInfo) {
-    //         return $scope.user.profileInfo;
-    //     } else {
-    //         return;
-    //     }
-    // };
+    //opening popup on click of attach btn(paperclip)
+    var imageUploadPopup = "";
+    var titlename = "popUp";
+    $scope.openAttachment = function () {
+        console.log("initiating attachment process");
+        var modalInstance = $modal.open({
+            templateUrl: 'popup.html',
+            controller: 'PopupCont',
+            resolve: {
+                titlename2: function () {
+                    return titlename;
+                }
+            }
+        });
+    };
 
-    // $scope.getProfilePicture = function () {
-    //     if ($scope.user.image) {
-    //         return $scope.user.image;
-    //     } else {
-    //         return;
-    //     }
-    // };
+    $scope.getTagsForSuggestion = function () {
+
+    };
+
+    var profileInfo = "";
+    var profileInfo1 = "";
+    var fbInfo = false;
+    $scope.getProfileInfo = function () {
+        if ($scope.user.facebook && !fbInfo) {
+            if ($scope.user.facebook.gender){
+                profileInfo = "Gender : " + $scope.user.facebook.gender + "\n";
+            } else {
+                profileInfo = "Gender : " + "data unavailable" + "\n";
+            }
+            if ($scope.user.facebook.link) {
+                profileInfo1 = profileInfo + "FB-Link: " + $scope.user.facebook.link ;
+            } else {
+                profileInfo1 = profileInfo + "FB-Link: " + "data unavailable" ;
+            }
+            fbInfo = false;
+            return profileInfo1;
+        } else {
+            return "data unavailable";
+        }
+    };
+
+    $scope.getUserID = function () {
+        if ($scope.user) {
+            return $scope.user.$id;
+        }
+    };
+
+    var userPref = "";
+    $scope.getUserPref = function () {
+        /*if ($scope.userPrefs) {
+            if ($firebaseArray(userPrefRef.child($scope.user.$id))) {
+                userPref = $firebaseArray(userPrefRef.child($scope.user.$id)).pref;
+            }
+        }
+        return userPref;*/
+    };
+
+    $scope.updateUserPrefs = function () {
+
+    };
+
+    $scope.getProfilePicture = function () {
+        if ($scope.user.image) {
+            return $scope.user.image;
+        } else {
+            return;
+        }
+    };
 
     $scope.isOpen = function (checkUser) {
         return checkUser.status === 'OPEN';
+    };
+
+    $scope.isassigned = function (checkUser) {
+        return checkUser.status === 'ASSIGNED';
+    };
+
+    $scope.isinprogress = function (checkUser) {
+        return checkUser.status === 'INPROGRESS';
     };
 
     $scope.load = function() {
@@ -353,7 +470,7 @@ function sendChatNotification($scope, $http) {
             "title": "Parapluie",
             "body": "You have new messages!"
         },
-        "deeplink": "https://k2a92.app.goo.gl/EawQ",
+        "deeplink": "https://k2a92.app.goo.gl/9tGa",
         "gcm_collapse_key": {
             "enabled": true,
             "key": "default"
@@ -391,7 +508,8 @@ function getChats ($scope, $firebaseArray) {
     //Retrieving Chats
     $scope.chats = $firebaseArray(chatRef.orderByChild('time'));
     $scope.$watch('chats', function () {
-
+        /*var audio = new Audio('audio/glass_ping.mp3');
+        audio.play();*/
             /*var audio = new Audio('audio/oh-really.mp3');
             audio.play();*/
 
@@ -413,7 +531,7 @@ function getChats ($scope, $firebaseArray) {
 
 app.controller("TagController", function ($scope, $firebaseArray, $firebaseObject) {
     var tagRef = fireRef.child("tags");
-
+//$scope.tags = $firebaseArray(tagRef.orderByChild('popularity'));
     $scope.tags = $firebaseArray(tagRef.orderByKey());
     $scope.$watch('tags',function () {
         $scope.tags.forEach(function (tag) {
